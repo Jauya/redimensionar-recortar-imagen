@@ -53,7 +53,8 @@ export default function ImageProcessor() {
           });
 
           // Create a new File with the processed image
-          return new File([processedBlob], img.file.name, {
+          const fileName = img.file.name.replace(/\.[^.]*$/, '') + '.jpg';
+          return new File([processedBlob], fileName, {
             type: "image/jpeg",
           });
         })
