@@ -45,7 +45,7 @@ export default function ImageProcessor() {
 
       // Process each image with the selected aspect ratio and size
       const processedImages: File[] = await Promise.all(
-        images.map(async (img) => {
+        images.map(async (img, index) => {
           const processedBlob = await processImage(img.file, {
             aspectRatio: selectedAspectRatio,
             outputSize: outputSize,
@@ -53,7 +53,8 @@ export default function ImageProcessor() {
           });
 
           // Create a new File with the processed image
-          const fileName = img.file.name.replace(/\.[^.]*$/, '') + '.jpg';
+          const baseName = img.file.name.replace(/\.[^.]*$/, '');
+          const fileName = `${baseName}_${index + 1}.jpg`;
           return new File([processedBlob], fileName, {
             type: "image/jpeg",
           });
